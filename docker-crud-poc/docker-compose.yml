@@ -1,0 +1,15 @@
+services:
+  employee-app:
+    build: .                        # builds image using the Dockerfile in this folder
+    image: docker-crud-poc:1.0
+    container_name: employee-app
+    ports:
+      - "8080:8080"                 # host:container
+    volumes:
+      - h2-data:/app/data           # named volume -> H2 data survives container restarts
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx256m  # limit JVM memory
+    restart: unless-stopped
+
+volumes:
+  h2-data:
